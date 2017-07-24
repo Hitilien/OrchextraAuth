@@ -8,11 +8,11 @@
 
 import Foundation
 
-struct Errors: JSONDecodable {
+public struct Errors: JSONDecodable {
     
-    var error: String
-    var code: Int
-    var errors: String
+    public var error: String
+    public var code: Int
+    public var errors: Dictionary<String, AnyObject>?
     
     static func decode(_ json: JSON) -> Errors? {
         
@@ -20,7 +20,11 @@ struct Errors: JSONDecodable {
             return nil;
         }
         
-        return Errors(error: error, code: code, errors: "")
+        if let jsonErrors = jsonData["errors"] as? JSONDictionary{
+            return Errors(error: error, code: code, errors: jsonErrors)
+        }
+        
+        return Errors(error: error, code: code, errors: [:])
     }
     
 }
@@ -28,7 +32,7 @@ struct Errors: JSONDecodable {
 // MARK: - CustomStringConvertible
 extension Errors: CustomStringConvertible {
     
-    var description: String{
+    public var description: String{
         return "Error: \(error) \nCode: \(code)"
     }
     

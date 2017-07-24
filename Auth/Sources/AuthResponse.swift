@@ -8,9 +8,9 @@
 
 import Foundation
 
-class AuthResponse: BaseResponse {
+public class AuthResponse: BaseResponse {
     
-    var user: User?
+    public var access: Access?
     
     override init() {
         super.init()
@@ -20,7 +20,7 @@ class AuthResponse: BaseResponse {
         super.init(json: json)
         
         if let json = json as? JSONDictionary, let userData = json["data"] {
-            user = User.decode(userData)
+            access = Access.decode(userData)
         }
     }
     

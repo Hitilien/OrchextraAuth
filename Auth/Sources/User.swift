@@ -10,27 +10,32 @@ import Foundation
 
 
 /// User
-struct User {
+public struct Access: CustomStringConvertible {
     
     public let token: String
     
     public let expireIn: String
     
-    static func create(_ token: String, _ expireIn: String) -> User {
-        return User(token: token, expireIn: expireIn)
+    static func create(_ token: String, _ expireIn: String) -> Access {
+        return Access(token: token, expireIn: expireIn)
+    }
+
+    // MARK: - CustomStringConvertible
+    public var description: String{
+        return "Token: \(token) \nExpires in: \(expireIn)"
     }
 
 }
 
 // MARK: - JSONDecodable
-extension User: JSONDecodable {
+extension Access: JSONDecodable {
 
-    static func decode(_ json: JSON) -> User? {
+    static func decode(_ json: JSON) -> Access? {
         
         if let json = json as? JSONDictionary {
             
             if let token = json["token"]  as? String, let expiresIn = json["expiresIn"] as? String {
-                let user = User.create(token, expiresIn)
+                let user = Access.create(token, expiresIn)
                 return user
             }
         }
@@ -40,10 +45,4 @@ extension User: JSONDecodable {
 
 }
 
-// MARK: - CustomStringConvertible
-extension User: CustomStringConvertible {
 
-    var description: String{
-        return "Token: \(token) \nExpires in: \(expireIn)"
-    }
-}

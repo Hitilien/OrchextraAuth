@@ -9,13 +9,13 @@
 import Foundation
 
 
-class BaseResponse {
+public class BaseResponse {
 
-    var status: Int!
+    public var status: Int!
     
-    var error: Errors?
+    public var error: Errors?
     
-    var isSuccess: Bool {
+    public var isSuccess: Bool {
         return status == 1
     }
 
@@ -35,6 +35,6 @@ class BaseResponse {
     
     public init(){
         status = 0;
-        error  = Errors(error: "Default Error", code: -1, errors: "")
+        error  = Errors(error: "Default Error", code: -1, errors: [:])
     }
 }

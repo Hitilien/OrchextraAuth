@@ -14,8 +14,15 @@ struct Server {
    
     private static let kAuth: String = "/auth"
     
+    private static let kLogin: String = "/login"
+    
     static func authURL() -> String {
         let endpoint = kHost + kAuth
+        return endpoint
+    }
+    
+    static func loginURL() -> String {
+        let endpoint = kHost + kLogin
         return endpoint
     }
 }

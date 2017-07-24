@@ -6,7 +6,22 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		7CB8640D1F26576300709894 /* AuthUniversal */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 7CB8640E1F26576300709894 /* Build configuration list for PBXAggregateTarget "AuthUniversal" */;
+			buildPhases = (
+				7CB864111F26576700709894 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = AuthUniversal;
+			productName = AuthUniversal;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
+		7CB864171F26681100709894 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB864161F26681100709894 /* LoginResponse.swift */; };
 		7CD26CD31F226CD100093C92 /* Auth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CD26CC91F226CD100093C92 /* Auth.framework */; };
 		7CD26CD81F226CD100093C92 /* AuthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD26CD71F226CD100093C92 /* AuthTests.swift */; };
 		7CD26CDA1F226CD100093C92 /* Auth.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CD26CCC1F226CD100093C92 /* Auth.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -39,6 +54,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7CB864161F26681100709894 /* LoginResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginResponse.swift; path = ../LoginResponse.swift; sourceTree = "<group>"; };
 		7CD26CC91F226CD100093C92 /* Auth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Auth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CD26CCC1F226CD100093C92 /* Auth.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Auth.h; sourceTree = "<group>"; };
 		7CD26CCD1F226CD100093C92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -119,6 +135,7 @@
 			children = (
 				7CD26D1B1F226D2700093C92 /* Model */,
 				7CD26D0C1F226D2100093C92 /* Auth.swift */,
+				7CB864161F26681100709894 /* LoginResponse.swift */,
 				7CD26D0D1F226D2100093C92 /* BaseResponse.swift */,
 				7CD26D0E1F226D2100093C92 /* Server.swift */,
 				7CD26D0F1F226D2100093C92 /* AuthResponse.swift */,
@@ -166,6 +183,7 @@
 				7CD26CC51F226CD100093C92 /* Frameworks */,
 				7CD26CC61F226CD100093C92 /* Headers */,
 				7CD26CC71F226CD100093C92 /* Resources */,
+				7CB8640C1F26574C00709894 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -204,6 +222,10 @@
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = macpro.javier.garcia;
 				TargetAttributes = {
+					7CB8640D1F26576300709894 = {
+						CreatedOnToolsVersion = 8.3.2;
+						ProvisioningStyle = Automatic;
+					};
 					7CD26CC81F226CD100093C92 = {
 						CreatedOnToolsVersion = 8.3.2;
 						ProvisioningStyle = Automatic;
@@ -229,6 +251,7 @@
 			targets = (
 				7CD26CC81F226CD100093C92 /* Auth */,
 				7CD26CD11F226CD100093C92 /* AuthTests */,
+				7CB8640D1F26576300709894 /* AuthUniversal */,
 			);
 		};
 /* End PBXProject section */
@@ -250,6 +273,35 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		7CB8640C1F26574C00709894 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "";
+		};
+		7CB864111F26576700709894 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n\nUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\n\n# make sure the output directory exists\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n# Step 1. Build Device and Simulator versions\nxcodebuild -target \"${PROJECT_NAME}\" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\nxcodebuild -target \"${PROJECT_NAME}\" -configuration ${CONFIGURATION} -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\n# Step 2. Copy the framework structure (from iphoneos build) to the universal folder\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n\n# Step 3. Copy Swift modules from iphonesimulator build (if it exists) to the copied framework directory\nSIMULATOR_SWIFT_MODULES_DIR=\"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule/.\"\nif [ -d \"${SIMULATOR_SWIFT_MODULES_DIR}\" ]; then\ncp -R \"${SIMULATOR_SWIFT_MODULES_DIR}\" \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule\"\nfi\n\n# Step 4. Create universal binary file using lipo and place the combined executable in the copied framework directory\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework/${PROJECT_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${PROJECT_NAME}.framework/${PROJECT_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework/${PROJECT_NAME}\"\n\n# Step 5. Convenience step to copy the framework to the project's directory\ncp -R \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework\" \"${PROJECT_DIR}\"\n\n# Step 6. Convenience step to open the project's directory in Finder\nopen \"${PROJECT_DIR}\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		7CD26CC41F226CD100093C92 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -261,6 +313,7 @@
 				7CD26D171F226D2100093C92 /* AuthResponse.swift in Sources */,
 				7CD26D191F226D2100093C92 /* User.swift in Sources */,
 				7CD26D1D1F226D3C00093C92 /* Errors.swift in Sources */,
+				7CB864171F26681100709894 /* LoginResponse.swift in Sources */,
 				7CD26D131F226D2100093C92 /* BaseResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -291,6 +344,21 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		7CB8640F1F26576300709894 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		7CB864101F26576300709894 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		7CD26CDB1F226CD100093C92 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -473,6 +541,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		7CB8640E1F26576300709894 /* Build configuration list for PBXAggregateTarget "AuthUniversal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7CB8640F1F26576300709894 /* Debug */,
+				7CB864101F26576300709894 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		7CD26CC31F226CD100093C92 /* Build configuration list for PBXProject "Auth" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -489,6 +565,7 @@
 				7CD26CDF1F226CD100093C92 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7CD26CE01F226CD100093C92 /* Build configuration list for PBXNativeTarget "AuthTests" */ = {
 			isa = XCConfigurationList;
@@ -497,6 +574,7 @@
 				7CD26CE21F226CD100093C92 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
