@@ -1,0 +1,10 @@
+framework module Auth {
+  umbrella header "Auth.h"
+
+  export *
+  module * { export * }
+}
+
+module Auth.Swift {
+    header "Auth-Swift.h"
+}
