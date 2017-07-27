@@ -8,82 +8,32 @@
 
 import Foundation
 
-
-public struct UserLogin: JSONDecodable {
-    static func decode(_ json: JSON) -> UserLogin? {
-        return nil;
-    }
-}
-
-public struct Project: JSONDecodable {
-    
-    var name: String
-    var users: [UserLogin]?
-    var id: String
-    
-    static func decode(_ json: JSON) -> Project? {
-        
-        guard let json = json as? JSONDictionary else {
-            return nil;
-        }
-        
-        let name = json["name"] as? String ?? ""
-        let id = json["id"] as? String ?? ""
-        let project: Project?
-        project = Project(name: name, users: nil, id: id)
-        
-        return project
-    }
-    
-}
-
-
-public enum Role {
-  
-    case superAdmin
-    case unknown
-    
-    static func decode(string: String) -> Role?{
-    
-        let result: Role
-        switch string.lowercased() {
-        case "superadmin":
-            result = .superAdmin
-        default:
-            result = .unknown
-        }
-        return result;
-    }
-    
-}
-
-
 public struct Login: JSONDecodable {
 
-    var languageCode: String
+    public var languageCode: String
     
-    var role: String
+    public var role: String
     
-    var password: String
+    public var password: String
     
-    var email: String
+    public var email: String
     
-    var name: String
+    public var name: String
     
-    var username: String
+    public var username: String
     
-    var updateAt: String
+    public var updateAt: String
     
-    var createAt: String
+    public var createAt: String
     
-    var roles: [Role]
+    public var roles: [Role]
     
-    var projects: [Project]
+    public var projects: [Project]
     
-    var id: String
+    public var id: String
     
-    var access: Access
-    
+    public var access: Access
+
     
     static func decode(_ json: JSON) -> Login? {
 

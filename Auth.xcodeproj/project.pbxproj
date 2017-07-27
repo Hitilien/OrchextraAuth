@@ -22,6 +22,9 @@
 
 /* Begin PBXBuildFile section */
 		7CB864171F26681100709894 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB864161F26681100709894 /* LoginResponse.swift */; };
+		7CB8641A1F27A24900709894 /* UserLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB864191F27A24900709894 /* UserLogin.swift */; };
+		7CB8641C1F27A26000709894 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB8641B1F27A26000709894 /* Project.swift */; };
+		7CB8641E1F27A26D00709894 /* Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB8641D1F27A26D00709894 /* Role.swift */; };
 		7CD26CD31F226CD100093C92 /* Auth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CD26CC91F226CD100093C92 /* Auth.framework */; };
 		7CD26CD81F226CD100093C92 /* AuthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD26CD71F226CD100093C92 /* AuthTests.swift */; };
 		7CD26CDA1F226CD100093C92 /* Auth.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CD26CCC1F226CD100093C92 /* Auth.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -37,7 +40,6 @@
 		7CD26D1A1F226D2100093C92 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD26D101F226D2100093C92 /* User.swift */; };
 		7CD26D1D1F226D3C00093C92 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD26D1C1F226D3C00093C92 /* Errors.swift */; };
 		7CD26D1E1F226D3C00093C92 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD26D1C1F226D3C00093C92 /* Errors.swift */; };
-		7CD26D211F226D7900093C92 /* RestClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CD26D201F226D7900093C92 /* RestClient.framework */; };
 		7CD26D221F226D7900093C92 /* RestClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CD26D201F226D7900093C92 /* RestClient.framework */; };
 		7CD26D241F226E5800093C92 /* JSONDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD26D231F226E5800093C92 /* JSONDecodable.swift */; };
 		7CD26D251F226E5800093C92 /* JSONDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD26D231F226E5800093C92 /* JSONDecodable.swift */; };
@@ -55,6 +57,9 @@
 
 /* Begin PBXFileReference section */
 		7CB864161F26681100709894 /* LoginResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginResponse.swift; path = ../LoginResponse.swift; sourceTree = "<group>"; };
+		7CB864191F27A24900709894 /* UserLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLogin.swift; sourceTree = "<group>"; };
+		7CB8641B1F27A26000709894 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		7CB8641D1F27A26D00709894 /* Role.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Role.swift; sourceTree = "<group>"; };
 		7CD26CC91F226CD100093C92 /* Auth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Auth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CD26CCC1F226CD100093C92 /* Auth.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Auth.h; sourceTree = "<group>"; };
 		7CD26CCD1F226CD100093C92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -76,7 +81,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7CD26D211F226D7900093C92 /* RestClient.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +96,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7CB864181F27A23A00709894 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				7CB864191F27A24900709894 /* UserLogin.swift */,
+				7CB8641B1F27A26000709894 /* Project.swift */,
+				7CB8641D1F27A26D00709894 /* Role.swift */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
 		7CD26CBF1F226CD100093C92 = {
 			isa = PBXGroup;
 			children = (
@@ -147,6 +161,7 @@
 		7CD26D1B1F226D2700093C92 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7CB864181F27A23A00709894 /* Login */,
 				7CD26D101F226D2100093C92 /* User.swift */,
 				7CD26D1C1F226D3C00093C92 /* Errors.swift */,
 			);
@@ -308,7 +323,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				7CD26D111F226D2100093C92 /* Auth.swift in Sources */,
+				7CB8641E1F27A26D00709894 /* Role.swift in Sources */,
 				7CD26D151F226D2100093C92 /* Server.swift in Sources */,
+				7CB8641A1F27A24900709894 /* UserLogin.swift in Sources */,
+				7CB8641C1F27A26000709894 /* Project.swift in Sources */,
 				7CD26D241F226E5800093C92 /* JSONDecodable.swift in Sources */,
 				7CD26D171F226D2100093C92 /* AuthResponse.swift in Sources */,
 				7CD26D191F226D2100093C92 /* User.swift in Sources */,
@@ -548,6 +566,7 @@
 				7CB864101F26576300709894 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7CD26CC31F226CD100093C92 /* Build configuration list for PBXProject "Auth" */ = {
 			isa = XCConfigurationList;
